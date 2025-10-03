@@ -2,6 +2,7 @@ resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
 
   tags = {
+    Name = "${terraform.workspace}-elk-app-vpc"
   }
 }
 
@@ -11,6 +12,7 @@ resource "aws_subnet" "public_subnet" {
 
   tags = {
     subnet-type = "public"
+    Name = "${terraform.workspace}-elk-app-public-subnet"
   }
 }
 
@@ -20,6 +22,7 @@ resource "aws_subnet" "private_subnet" {
 
   tags = {
     subnet-type = "private"
+    Name = "${terraform.workspace}-elk-app-private-subnet"
   }
 }
 
@@ -27,6 +30,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
+    Name = "${terraform.workspace}-elk-app-igw"
   }
 }
 
@@ -34,6 +38,7 @@ resource "aws_route_table" "app_route_table" {
   vpc_id = aws_vpc.main.id
 
   tags = {
+    Name = "${terraform.workspace}-elk-app-route-table"
   }
 }
 
