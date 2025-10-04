@@ -2,7 +2,7 @@ data "aws_region" "current" {}
 
 data "aws_ami" "ubuntu-24" {
   most_recent = true
-  region      = data.aws_region.current.name
+  region      = data.aws_region.current.region
 
   filter {
     name   = "name"
