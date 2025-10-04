@@ -12,7 +12,7 @@ resource "aws_subnet" "public_subnet" {
 
   tags = {
     subnet-type = "public"
-    Name = "${terraform.workspace}-elk-app-public-subnet"
+    Name        = "${terraform.workspace}-elk-app-public-subnet"
   }
 }
 
@@ -22,7 +22,7 @@ resource "aws_subnet" "private_subnet" {
 
   tags = {
     subnet-type = "private"
-    Name = "${terraform.workspace}-elk-app-private-subnet"
+    Name        = "${terraform.workspace}-elk-app-private-subnet"
   }
 }
 
