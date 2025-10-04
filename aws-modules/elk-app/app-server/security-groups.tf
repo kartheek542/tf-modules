@@ -31,7 +31,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ssh" {
   ip_protocol       = "tcp"
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_public http" {
+resource "aws_vpc_security_group_ingress_rule" "allow_public_http" {
   security_group_id = aws_security_group.default_sg.id
   cidr_ipv4         = "0.0.0.0/"
   from_port         = 80
@@ -39,7 +39,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_public http" {
   ip_protocol       = "tcp"
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_public https" {
+resource "aws_vpc_security_group_ingress_rule" "allow_public_https" {
   security_group_id = aws_security_group.default_sg.id
   cidr_ipv4         = "0.0.0.0/"
   from_port         = 443
