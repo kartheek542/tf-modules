@@ -17,7 +17,7 @@ resource "aws_security_group" "database_sg" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "public_subnet_pg_port" {
-  security_group_id = aws_security_group.default_sg.id
+  security_group_id = aws_security_group.database_sg.id
   cidr_ipv4         = data.aws_subnet.public_subnet.cidr_block
   from_port         = var.db_port
   to_port           = var.db_port
@@ -26,7 +26,7 @@ resource "aws_vpc_security_group_ingress_rule" "public_subnet_pg_port" {
 
 resource "aws_vpc_security_group_ingress_rule" "private_subnet_pg_port" {
   count             = length(var.private_subnet_ids)
-  security_group_id = aws_security_group.default_sg.id
+  security_group_id = aws_security_group.database_sg.id
   cidr_ipv4         = data.aws_subnet.private_subnets[count.index].cidr_block
   from_port         = var.db_port
   to_port           = var.db_port
