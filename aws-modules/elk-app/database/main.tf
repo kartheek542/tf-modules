@@ -22,7 +22,7 @@ resource "aws_db_subnet_group" "subnet_group" {
   }
 }
 
-resource "aws_db_instance" "default" {
+resource "aws_db_instance" "db_instance" {
   allocated_storage           = 10
   db_name                     = var.db_name
   engine                      = data.aws_rds_engine_version.database.engine
