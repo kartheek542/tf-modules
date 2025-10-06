@@ -30,6 +30,7 @@ resource "aws_db_instance" "db_instance" {
   port                        = var.db_port
   username                    = var.master_username
   manage_master_user_password = true
+  identifier                  = "${terraform.workspace}-elk-db-instance"
   instance_class              = var.instance_class
   parameter_group_name        = aws_db_parameter_group.elk-params-group.name
   db_subnet_group_name        = aws_db_subnet_group.subnet_group.name
