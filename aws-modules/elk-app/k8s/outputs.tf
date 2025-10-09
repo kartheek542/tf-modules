@@ -7,5 +7,5 @@ output "cluster_arn" {
 }
 
 output "security_group_id" {
-  value = aws_eks_cluster.elk_cluster.vpc_config[0].security_group_ids[0]
+  value = aws_security_group.default_sg.id
 }
