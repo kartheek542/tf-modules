@@ -77,7 +77,7 @@ resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
 
 # Node Groups
 resource "aws_iam_role" "elk_eks_node_group" {
-  name = "eks-node-group-role"
+  name = "${terraform.workspace}-eks-node-group-role"
 
   assume_role_policy = jsonencode({
     Statement = [{
