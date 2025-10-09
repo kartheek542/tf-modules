@@ -10,5 +10,5 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
-variable "subnet_id" { }
-variable "eks_cluster_arn" { }
+variable "subnet_id" {}
+variable "eks_cluster_arn" {}

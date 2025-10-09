@@ -12,15 +12,6 @@ resource "aws_security_group" "default_sg" {
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_https" {
-  count             = length(var.jump_server_ports)
-  security_group_id = aws_security_group.default_sg.id
-  cidr_ipv4         = "${var.jump_server_ip}/0"
-  from_port         = var.jump_server_ports[count.index]
-  to_port           = var.jump_server_ports[count.index]
-  ip_protocol       = "tcp"
-}
-
 # cluster
 resource "aws_eks_cluster" "elk_cluster" {
   name = "${terraform.workspace}-elk-eks-cluster"
