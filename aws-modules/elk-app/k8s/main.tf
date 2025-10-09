@@ -20,7 +20,7 @@ resource "aws_eks_cluster" "elk_cluster" {
     authentication_mode = "API"
   }
 
-  role_arn = aws_iam_role.cluster.arn
+  role_arn = aws_iam_role.eks_cluster.arn
   version  = var.cluster_version
 
   kubernetes_network_config {
