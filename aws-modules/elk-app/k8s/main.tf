@@ -103,7 +103,7 @@ resource "aws_eks_node_group" "example" {
   count           = length(var.node_groups)
   cluster_name    = aws_eks_cluster.elk_cluster.name
   node_group_name = var.node_groups[count.index].name
-  node_role_arn   = aws_iam_role.example.arn
+  node_role_arn   = aws_iam_role.elk_eks_node_group.arn
   subnet_ids      = var.cluster_subnet_ids
 
   disk_size      = var.node_groups[count.index].disk_size
