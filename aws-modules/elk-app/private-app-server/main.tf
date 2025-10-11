@@ -40,7 +40,6 @@ resource "aws_instance" "app-server" {
   subnet_id              = var.subnet_id
   key_name               = aws_key_pair.ssh-key.key_name
   vpc_security_group_ids = [var.security_group_id]
-  private_ip             = cidrhost(data.aws_subnet.public_subnet.cidr_block, 5)
   iam_instance_profile   = var.instance_profile_name
 
   root_block_device {
