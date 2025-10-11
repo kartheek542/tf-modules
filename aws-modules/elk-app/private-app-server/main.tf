@@ -23,22 +23,11 @@ data "aws_ami" "ubuntu-24" {
 
 }
 
-resource "aws_key_pair" "ssh-key" {
-  key_name   = "${terraform.workspace}-pub-key"
-  public_key = file(var.public_key_path)
-
-  tags = {
-    Name = "${terraform.workspace}-pub-key"
-  }
-}
-
-
-
 resource "aws_instance" "app-server" {
   ami                    = data.aws_ami.ubuntu-24.id
   instance_type          = var.instance_type
   subnet_id              = var.subnet_id
-  key_name               = aws_key_pair.ssh-key.key_name
+  key_name               = var.key_name
   vpc_security_group_ids = [var.security_group_id]
   iam_instance_profile   = var.instance_profile_name
 

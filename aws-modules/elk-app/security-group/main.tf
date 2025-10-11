@@ -1,5 +1,5 @@
 resource "aws_security_group" "sg" {
-  name   = "${terraform.workspace}-elk-app-default-sg"
+  name   = "${terraform.workspace}-elk-app-${var.name}-sg"
   vpc_id = var.vpc_id
 
   tags = {
