@@ -1,5 +1,4 @@
 data "aws_region" "current" {}
-
 data "aws_ami" "ubuntu-24" {
   most_recent = true
   region      = data.aws_region.current.region
@@ -43,7 +42,7 @@ resource "aws_instance" "app-server" {
   instance_type               = var.instance_type
   subnet_id                   = data.aws_subnet.public_subnet.id
   key_name                    = aws_key_pair.ssh-key.key_name
-  vpc_security_group_ids      = [aws_security_group.default_sg.id]
+  vpc_security_group_ids      = [var.security_group_id]
   private_ip                  = cidrhost(data.aws_subnet.public_subnet.cidr_block, 5)
   associate_public_ip_address = true
 
