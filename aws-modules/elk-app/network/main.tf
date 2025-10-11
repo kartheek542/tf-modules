@@ -41,27 +41,60 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-resource "aws_route_table" "app_route_table" {
+resource "aws_eip" "nat" {
+  domain = "vpc"
+
+  tags = {
+    Name = "elk-app-nat-eip"
+  }
+}
+
+resource "aws_nat_gateway" "nat_gw" {
+  allocation_id = aws_eip.nat.id
+  subnet_id     = aws_subnet.public_subnet.id
+
+  tags = {
+    Name = "elk-app-nat-gw"
+  }
+
+  depends_on = [aws_internet_gateway.igw]
+}
+
+resource "aws_route_table" "public_app_route_table" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "${terraform.workspace}-elk-app-route-table"
+    Name = "${terraform.workspace}-elk-public-app-route-table"
+  }
+}
+
+resource "aws_route_table" "private_app_route_table" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "${terraform.workspace}-elk-private-app-route-table"
   }
 }
 
 resource "aws_route" "ig_route" {
-  route_table_id         = aws_route_table.app_route_table.id
+  route_table_id         = aws_route_table.public_app_route_table.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.igw.id
 }
 
+resource "aws_route" "ngw_route" {
+  route_table_id         = aws_route_table.private_app_route_table.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_nat_gateway.nat_gw.id
+}
+
 resource "aws_route_table_association" "public_subnet_association" {
   subnet_id      = aws_subnet.public_subnet.id
-  route_table_id = aws_route_table.app_route_table.id
+  route_table_id = aws_route_table.public_app_route_table.id
 }
 
 resource "aws_route_table_association" "private_subnet_association" {
   count          = length(var.private_subnet_cidrs)
   subnet_id      = aws_subnet.private_subnet[count.index].id
-  route_table_id = aws_route_table.app_route_table.id
+  route_table_id = aws_route_table.private_app_route_table.id
 }
