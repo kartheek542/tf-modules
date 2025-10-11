@@ -45,6 +45,7 @@ resource "aws_instance" "app-server" {
   vpc_security_group_ids      = [var.security_group_id]
   private_ip                  = cidrhost(data.aws_subnet.public_subnet.cidr_block, 5)
   associate_public_ip_address = true
+  iam_instance_profile        = var.instance_profile_name
 
   root_block_device {
     volume_size = 10
