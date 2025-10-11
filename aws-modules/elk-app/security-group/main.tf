@@ -38,8 +38,17 @@ resource "aws_vpc_security_group_ingress_rule" "allow_public_https" {
   count             = var.public ? 1 : 0
   security_group_id = aws_security_group.sg.id
   cidr_ipv4         = "0.0.0.0/0"
-  from_port         = 8000
-  to_port           = 9000
+  from_port         = 443
+  to_port           = 443
+  ip_protocol       = "tcp"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_public_ssh" {
+  count             = var.public ? 1 : 0
+  security_group_id = aws_security_group.sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 22
+  to_port           = 22
   ip_protocol       = "tcp"
 }
 
