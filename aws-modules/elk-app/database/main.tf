@@ -34,6 +34,6 @@ resource "aws_db_instance" "db_instance" {
   instance_class              = var.instance_class
   parameter_group_name        = aws_db_parameter_group.elk-params-group.name
   db_subnet_group_name        = aws_db_subnet_group.subnet_group.name
-  vpc_security_group_ids      = [aws_security_group.database_sg.id]
+  vpc_security_group_ids      = [var.security_group_id]
   skip_final_snapshot         = true
 }
