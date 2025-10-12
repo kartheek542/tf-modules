@@ -34,6 +34,15 @@ resource "aws_vpc_security_group_ingress_rule" "allow_80_series" {
   ip_protocol       = "tcp"
 }
 
+resource "aws_vpc_security_group_ingress_rule" "allow_1000_series" {
+  count             = length(var.allowed_ranges)
+  security_group_id = aws_security_group.sg.id
+  cidr_ipv4         = var.allowed_ranges[count.index]
+  from_port         = 2000
+  to_port           = 7000
+  ip_protocol       = "tcp"
+}
+
 resource "aws_vpc_security_group_ingress_rule" "allow_public_https" {
   count             = var.public ? 1 : 0
   security_group_id = aws_security_group.sg.id
