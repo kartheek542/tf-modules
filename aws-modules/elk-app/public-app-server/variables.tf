@@ -3,3 +3,4 @@ variable "subnet_id" {}
 variable "instance_profile_name" {}
 variable "security_group_id" {}
 variable "key_name" {}
+variable "user_data_script" { default = "" }

@@ -34,6 +34,7 @@ resource "aws_instance" "app-server" {
   vpc_security_group_ids      = [var.security_group_id]
   associate_public_ip_address = true
   iam_instance_profile        = var.instance_profile_name
+  user_data                   = var.user_data_script == "" ? "" : file(var.user_data_script)
 
   root_block_device {
     volume_size = 10
