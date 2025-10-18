@@ -1,17 +1,3 @@
-# security group for jump server
-data "aws_subnet" "private_subnet" {
-  id = var.cluster_subnet_ids[0]
-}
-
-resource "aws_security_group" "default_sg" {
-  name   = "${terraform.workspace}-elk-cluster-user-sg"
-  vpc_id = data.aws_subnet.private_subnet.vpc_id
-
-  tags = {
-    Name = "${terraform.workspace}-elk-cluster-default-sg"
-  }
-}
-
 # cluster
 resource "aws_eks_cluster" "elk_cluster" {
   name = "${terraform.workspace}-elk-eks-cluster"
@@ -32,7 +18,7 @@ resource "aws_eks_cluster" "elk_cluster" {
     endpoint_private_access = true
     endpoint_public_access  = true
 
-    security_group_ids = [aws_security_group.default_sg.id]
+    security_group_ids = var.security_group_ids
     subnet_ids         = var.cluster_subnet_ids
   }
 
