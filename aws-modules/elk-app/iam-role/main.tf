@@ -45,13 +45,6 @@ resource "aws_iam_role_policy" "eks_kubeconfig_policy" {
   })
 }
 
-
-resource "aws_iam_role_policy_attachment" "eks_full_access" {
-  count      = length(var.eks_cluster_arns) > 0 ? 1 : 0
-  role       = aws_iam_role.role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSFullAccess"
-}
-
 resource "aws_iam_role_policy_attachment" "eks_cluster_policy_attach" {
   count      = length(var.eks_cluster_arns) > 0 ? 1 : 0
   role       = aws_iam_role.role.name
