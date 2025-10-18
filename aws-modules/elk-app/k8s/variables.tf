@@ -1,7 +1,7 @@
 variable "cluster_subnet_ids" {}
 variable "pods_ip_cidr" { default = "192.168.0.0/16" }
 variable "cluster_version" { default = "1.30" }
-variable "security_group_ids" { }
+variable "security_group_ids" {}
 variable "node_groups" {
   default = [{
     name          = "group-1"
