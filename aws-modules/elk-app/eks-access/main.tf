@@ -33,5 +33,5 @@ resource "aws_eks_access_policy_association" "other_admin_access" {
     type = "cluster"
   }
 
-  depends_on = [aws_eks_access_entry.other_access[count.index]]
+  depends_on = [aws_eks_access_entry.other_access]
 }
