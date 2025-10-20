@@ -7,3 +7,7 @@ output "role_name" {
 output "instance_profile_name" {
   value = aws_iam_instance_profile.ec2_instance_profile[*].id
 }
+
+output "arn" {
+  value = aws_iam_role.role.arn
+}
