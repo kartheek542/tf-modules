@@ -11,3 +11,5 @@ variable "node_groups" {
     }
   ]
 }
+variable "namespace" { default = "elk-kar" }
+variable "service_account" { default = "kar-aws" }

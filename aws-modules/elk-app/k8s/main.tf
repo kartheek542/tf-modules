@@ -68,6 +68,26 @@ resource "aws_iam_role" "elk_eks_node_group" {
   })
 }
 
+resource "aws_iam_role_policy" "eks_kubeconfig_policy" {
+  name = "EKSALBBAccessPolicy"
+  role = aws_iam_role.elk_eks_node_group.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ec2:*",
+          "elasticloadbalancing:*"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+
+}
+
 resource "aws_iam_role_policy_attachment" "elk-AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role       = aws_iam_role.elk_eks_node_group.name
