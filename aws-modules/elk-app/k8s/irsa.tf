@@ -32,7 +32,7 @@ resource "aws_iam_role" "irsa_role" {
 
 resource "aws_iam_role_policy" "sa_privileges" {
   name = "EKS_ELK_${var.namespace}-${var.service_account}_policy"
-  role = aws_iam_role.role.id
+  role = aws_iam_role.irsa_role.id
 
   policy = jsonencode({
     Version = "2012-10-17",
