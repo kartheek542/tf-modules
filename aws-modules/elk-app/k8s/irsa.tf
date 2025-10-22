@@ -30,17 +30,21 @@ resource "aws_iam_role" "irsa_role" {
   depends_on = [aws_iam_openid_connect_provider.eks_oidc]
 }
 
-resource "aws_iam_role_policy" "eks_kubeconfig_policy" {
+resource "aws_iam_role_policy" "sa_privileges" {
   name = "EKS_ELK_${var.namespace}-${var.service_account}_policy"
   role = aws_iam_role.role.id
 
   policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
+    Version = "2012-10-17",
+    Statement = [
       {
-        "Effect" : "Allow",
-        "Action" : "s3:GetObject",
-        "Resource" : "arn:aws:s3:::my-pod-secrets-bucket"
+        Effect = "Allow",
+        Action = [
+          "ec2:*",
+          "elasticloadbalancing:*",
+          "secretsmanager:*"
+        ],
+        Resource = "*"
       }
     ]
   })
